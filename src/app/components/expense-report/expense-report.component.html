@@ -1,7 +1,7 @@
 <div class="card mx-auto my-4">
   <p-table #dt1 [value]="expenses" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [rowHover]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedExpense"
     [globalFilterFields]="['type', 'amount', 'category', 'date']">
     <ng-template pTemplate="caption">
       <div class="flex">
@@ -39,6 +39,7 @@
             <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
           </div>
         </th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-expenses>
@@ -55,6 +56,12 @@
         <td>
           {{ formatDate(expenses.date) }}̥
         </td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+            (click)="editProduct(expenses)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+            (click)="deleteProduct(expenses)"></button>̥
+        </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
@@ -64,3 +71,19 @@
     </ng-template>
   </p-table>
 </div>
+
+
+
+<p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+  </ng-template>
+</p-dialog>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
