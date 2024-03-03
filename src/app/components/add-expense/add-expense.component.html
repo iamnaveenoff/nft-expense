@@ -30,10 +30,16 @@
       <p-inputGroup>
         <p-inputGroupAddon>
           <i class="fas fa-calendar"></i> </p-inputGroupAddon>
-        <p-calendar id="date" formControlName="date" dateFormat="dd/MM/yy" pInputText ></p-calendar>
+        <p-calendar id="date" formControlName="date" dateFormat="dd/MM/yy" pInputText></p-calendar>
       </p-inputGroup>
     </div>
-
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <p-inputGroup>
+        <p-inputGroupAddon><i class="fas fa-tags"></i></p-inputGroupAddon>
+        <input type="text" pInputText placeholder="Category" formControlName="category" required />
+      </p-inputGroup>
+    </div>
     <div class="form-group">
       <label for="description">Description:</label>
       <p-inputGroup>
