@@ -1,6 +1,6 @@
 <div class="card mx-auto my-4">
   <p-table #dt1 [value]="expenses" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [globalFilterFields]="['type', 'amount', 'category', 'date']">
     <ng-template pTemplate="caption">
@@ -15,9 +15,6 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 4rem">
-          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th>
         <th style="min-width:15rem">
           <div class="flex align-items-center">
             Expense Type
@@ -46,9 +43,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-expenses>
       <tr>
-        <td>
-          <p-tableCheckbox [value]="expenses"></p-tableCheckbox>
-        </td>
         <td>
           {{ expenses.type}}
         </td>
