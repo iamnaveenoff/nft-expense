@@ -24,6 +24,17 @@ export class ApiService {
     return this.firestore.collection<Expense>('expenses').valueChanges();
   }
 
+  async deleteExpense(expense: Expense): Promise<string | undefined> {
+    try {
+      console.log("ExpenseId: " + expense.expenseId);
+      this.firestore.doc('/Students/' + expense.expenseId).delete();
+      // await this.firestore.collection('/expenses').doc(expenseId).delete();
+      return "Expense deleted successfully";
+    } catch (error) {
+      console.error('Error deleting expense:', error);
+      throw error;
+    }
+  }
 
 
 }

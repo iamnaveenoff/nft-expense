@@ -53,15 +53,19 @@ export class ExpenseReportComponent implements OnInit {
 
   deleteProduct(expense: Expense) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + expense.id + '?',
+      message: `Are you sure you want to delete ${expense}?`,
       header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+      icon: 'fa-solid fa-triangle-exclamation',
+      accept: async () => {
+        try {
+          // await this.apiService.deleteExpense(expense);
+          // this.expenses = this.expenses.filter(e => e.expenseId !== expense.expenseId);
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: `Expense deleted`, life: 3000 });
+        } catch (error) {
+          console.error('Error deleting expense:', error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete expense', life: 3000 });
+        }
       }
     });
   }
-
-
 }

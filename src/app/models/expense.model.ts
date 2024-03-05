@@ -1,6 +1,6 @@
 import { Timestamp } from 'firebase/firestore';
 export interface Expense {
-  id: string;
+  expenseId: string;
   type: 'income' | 'expense';
   amount: number;
   category: string;

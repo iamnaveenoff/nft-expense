@@ -17,13 +17,13 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { AngularFireModule } from "@angular/fire/compat";
 import { environment } from "../environments/environment";
 import { ToastModule } from "primeng/toast";
-import {ConfirmationService, MessageService} from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { ExpenseReportComponent } from './components/expense-report/expense-report.component';
 import { TableModule } from "primeng/table";
 import { DatePipe } from '@angular/common';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import {ConfirmDialogModule} from "primeng/confirmdialog";
-import {DialogModule} from "primeng/dialog";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { DialogModule } from "primeng/dialog";
 
 @NgModule({
   declarations: [
@@ -53,7 +53,7 @@ import {DialogModule} from "primeng/dialog";
     DialogModule,
 
   ],
-  providers: [MessageService, DatePipe,ConfirmationService],
+  providers: [MessageService, DatePipe, ConfirmationService,],
   bootstrap: [AppComponent]
 })
 export class AppModule {

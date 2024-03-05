@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { nanoid } from 'nanoid';
 import { MessageService } from "primeng/api";
 import { ApiService } from 'src/app/services/api.service';
 
