@@ -26,7 +26,7 @@ export class ApiService {
 
   async deleteExpense(expense: Expense): Promise<string | undefined> {
     try {
-      await this.firestore.collection('/expenses').doc(expense.expenseId).delete();
+      await this.firestore.collection('/expenses').doc(expense.id).delete();
       return "Expense deleted successfully";
     } catch (error) {
       console.error('Error deleting expense:', error);

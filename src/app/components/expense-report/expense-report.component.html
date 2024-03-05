@@ -2,7 +2,8 @@
   <p-table #dt1 [value]="expenses" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
     [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [rowHover]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedExpense"
-    [globalFilterFields]="['type', 'amount', 'category', 'date']">
+    (onRowSelect)="onRowSelect($event)" selectionMode="single"
+    [globalFilterFields]="['type', 'amount', 'category', 'date']" styleClass="p-datatable-striped">
     <ng-template pTemplate="caption">
       <div class="flex">
         <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
@@ -43,7 +44,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-expenses>
-      <tr>
+      <tr [pSelectableRow]="expenses">
         <td>
           {{ expenses.type}}
         </td>
@@ -57,7 +58,7 @@
           {{ formatDate(expenses.date) }}̥
         </td>
         <td>
-          <button pButton pRipple icon="fa-solid fa-pencil" class="p-button-rounded p-button-success mr-2"
+          <button pButton pRipple icon=" fa-solid fa-pencil" class="p-button-rounded p-button-success mr-2"
             (click)="editProduct(expenses)"></button>
           <button pButton pRipple icon="fa-solid fa-trash-can" class="p-button-rounded p-button-warning"
             (click)="deleteProduct(expenses)"></button>̥

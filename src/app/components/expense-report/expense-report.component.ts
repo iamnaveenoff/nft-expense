@@ -16,12 +16,12 @@ export class ExpenseReportComponent implements OnInit {
   loading: boolean = true;
   productDialog: boolean = false;
   submitted: boolean = false;
-  selectedExpense!: Expense[] | null;
+  selectedExpense!: Expense | null;
   constructor(private messageService: MessageService, private apiService: ApiService, private datePipe: DatePipe, private confirmationService: ConfirmationService) { }
   ngOnInit() {
     this.apiService.getExpenses().subscribe((expenses) => {
-    this.expenses = expenses;
-    this.loading = false;
+      this.expenses = expenses;
+      this.loading = false;
     });
   }
   clear(table: Table) {
@@ -58,7 +58,7 @@ export class ExpenseReportComponent implements OnInit {
       icon: 'fa-solid fa-triangle-exclamation',
       accept: async () => {
         try {
-          await this.apiService.deleteExpense(expense);
+          // await this.apiService.deleteExpense(expense.id);
           this.messageService.add({ severity: 'success', summary: 'Successful', detail: `Expense deleted`, life: 3000 });
         } catch (error) {
           console.error('Error deleting expense:', error);
@@ -66,5 +66,9 @@ export class ExpenseReportComponent implements OnInit {
         }
       }
     });
+  }
+
+  onRowSelect(event: any) {
+    console.log(event);
   }
 }
