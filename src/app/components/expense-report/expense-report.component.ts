@@ -20,8 +20,8 @@ export class ExpenseReportComponent implements OnInit {
   constructor(private messageService: MessageService, private apiService: ApiService, private datePipe: DatePipe, private confirmationService: ConfirmationService) { }
   ngOnInit() {
     this.apiService.getExpenses().subscribe((expenses) => {
-      this.expenses = expenses;
-      this.loading = false;
+    this.expenses = expenses;
+    this.loading = false;
     });
   }
   clear(table: Table) {
@@ -58,8 +58,7 @@ export class ExpenseReportComponent implements OnInit {
       icon: 'fa-solid fa-triangle-exclamation',
       accept: async () => {
         try {
-          // await this.apiService.deleteExpense(expense);
-          // this.expenses = this.expenses.filter(e => e.expenseId !== expense.expenseId);
+          await this.apiService.deleteExpense(expense);
           this.messageService.add({ severity: 'success', summary: 'Successful', detail: `Expense deleted`, life: 3000 });
         } catch (error) {
           console.error('Error deleting expense:', error);
