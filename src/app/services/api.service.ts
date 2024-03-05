@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from "@angular/fire/compat/firestore";
-import { Observable, map } from "rxjs";
+import { Observable, from, map } from "rxjs";
 import { Expense } from "../models/expense.model";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
@@ -20,9 +20,15 @@ export class ApiService {
     return this.firestore.collection('expenses').add(expense);
   }
 
-  // getExpenses(): Observable<Expense[]> {
-  //   return this.firestore.collection<Expense>('expenses').valueChanges();
-  // }
+  updateExpense(expense: Expense) {
+    try {
+      const expenseRef = this.firestore.collection('expenses').doc(expense.id);
+      return from(expenseRef.update(expense));
+    } catch (error) {
+      console.error('Error updating expense:', error);
+      throw error; // Re-throw the error for handling in the component
+    }
+  }
 
   getExpenses(): Observable<Expense[]> {
     return this.firestore.collection<Expense>('expenses')

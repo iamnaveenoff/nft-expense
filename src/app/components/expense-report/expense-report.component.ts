@@ -13,10 +13,12 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ExpenseReportComponent implements OnInit {
   expenses!: Expense[];
+  expense!: Expense;
   loading: boolean = true;
   productDialog: boolean = false;
   submitted: boolean = false;
   selectedExpense!: Expense | null;
+  selectedDate: Date | undefined;
   constructor(private messageService: MessageService, private apiService: ApiService, private datePipe: DatePipe, private confirmationService: ConfirmationService) { }
   ngOnInit() {
     this.apiService.getExpenses().subscribe((expenses) => {
@@ -43,11 +45,31 @@ export class ExpenseReportComponent implements OnInit {
   }
 
   saveProduct() {
-    this.submitted = true;
+    this.submitted = true; // Trigger validation
+    if (this.expense.type && this.expense.amount && this.expense.category && this.selectedDate) {
+      // Convert selectedDate to Firebase Timestamp
+      const firebaseDate = Timestamp.fromDate(this.selectedDate);
+      this.expense.date = firebaseDate;
+
+      // Call your service to update the expense in Firebase
+      this.apiService.updateExpense(this.expense)
+        .subscribe(
+          (response) => {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Expense updated', life: 3000 });
+            this.productDialog = false;
+          },
+          (error) => {
+            console.error('Error updating expense:', error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update expense', life: 3000 });
+          }
+        );
+    }
   }
 
+
   editProduct(expense: Expense) {
-    console.log(expense);
+    this.expense = { ...expense };
+    this.selectedDate = expense.date.toDate();
     this.productDialog = true;
   }
 
