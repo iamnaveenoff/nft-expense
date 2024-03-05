@@ -75,7 +75,7 @@ export class ExpenseReportComponent implements OnInit {
 
   deleteProduct(expense: Expense) {
     this.confirmationService.confirm({
-      message: `Are you sure you want to delete ${expense}?`,
+      message: `Are you sure you want to delete?`,
       header: 'Confirm',
       icon: 'fa-solid fa-triangle-exclamation',
       accept: async () => {
