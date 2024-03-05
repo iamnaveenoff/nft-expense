@@ -58,7 +58,7 @@ export class ExpenseReportComponent implements OnInit {
       icon: 'fa-solid fa-triangle-exclamation',
       accept: async () => {
         try {
-          // await this.apiService.deleteExpense(expense.id);
+          await this.apiService.deleteExpense(expense);
           this.messageService.add({ severity: 'success', summary: 'Successful', detail: `Expense deleted`, life: 3000 });
         } catch (error) {
           console.error('Error deleting expense:', error);
@@ -69,6 +69,6 @@ export class ExpenseReportComponent implements OnInit {
   }
 
   onRowSelect(event: any) {
-    console.log(event);
+    console.log(event.data.id);
   }
 }

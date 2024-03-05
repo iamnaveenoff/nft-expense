@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from "@angular/fire/compat/firestore";
-import { Observable } from "rxjs";
+import { Observable, map } from "rxjs";
 import { Expense } from "../models/expense.model";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
@@ -20,11 +20,24 @@ export class ApiService {
     return this.firestore.collection('expenses').add(expense);
   }
 
-  getExpenses(): Observable<Expense[]> {
-    return this.firestore.collection<Expense>('expenses').valueChanges();
-  }
+  // getExpenses(): Observable<Expense[]> {
+  //   return this.firestore.collection<Expense>('expenses').valueChanges();
+  // }
 
+  getExpenses(): Observable<Expense[]> {
+    return this.firestore.collection<Expense>('expenses')
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((change) => ({
+            ...change.payload.doc.data(),
+            id: change.payload.doc.id,
+          }))
+        )
+      );
+  }
   async deleteExpense(expense: Expense): Promise<string | undefined> {
+    console.log(expense)
     try {
       await this.firestore.collection('/expenses').doc(expense.id).delete();
       return "Expense deleted successfully";
