@@ -24,7 +24,8 @@ import { DatePipe } from '@angular/common';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { DialogModule } from "primeng/dialog";
-
+import { AuthModule } from '@auth0/auth0-angular';
+import { MenubarModule } from 'primeng/menubar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { DialogModule } from "primeng/dialog";
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    MenubarModule,
     AngularFirestoreModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -51,6 +53,13 @@ import { DialogModule } from "primeng/dialog";
     TableModule,
     ConfirmDialogModule,
     DialogModule,
+    AuthModule.forRoot({
+      domain: 'iamnaveenofficial.us.auth0.com',
+      clientId: 'JjCw6guy8vWw5HUCtKNk3ZMKlhXq62Iq',
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      }
+    }),
 
   ],
   providers: [MessageService, DatePipe, ConfirmationService,],
